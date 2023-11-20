@@ -15,23 +15,13 @@ app.set('view engine', 'ejs')
 
 // middleware & static files
 app.use(express.static("public"));
+app.use(express.urlencoded({extended: true}))
 app.use(morgan('dev'))
 
 // mongoose and mongo routes
 // create a blog
 app.get('/create', (req, res) => {
-    const blog = new Blog({
-        title: 'new blog 22',
-        body: 'more about my new blog 22'
-      })
-    
-    blog.save()
-    .then(result => {
-      res.send(result);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    res.render('create', {'title': 'Create a new blog'})
 })
 
 // find all blogs
@@ -45,6 +35,16 @@ app.get("/", (req, res) => {
     })
 })
 
+app.post("/", (req, res) => {
+    const blog = new Blog(req.body)
+    blog.save()
+    .then((result) => {
+        res.redirect("/")
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+})
 
 app.get("/about", (req, res) => {
     res.render("about.ejs",  {title: "About"})
