@@ -24,7 +24,7 @@ app.get('/create', (req, res) => {
     res.render('create', {'title': 'Create a new blog'})
 })
 
-// find all blogs
+// display all blogs
 app.get("/", (req, res) => {
     Blog.find()
     .then(result =>{
@@ -35,6 +35,7 @@ app.get("/", (req, res) => {
     })
 })
 
+// save new blog to database
 app.post("/", (req, res) => {
     const blog = new Blog(req.body)
     blog.save()
@@ -42,6 +43,17 @@ app.post("/", (req, res) => {
         res.redirect("/")
     })
     .catch((err) => {
+        console.log(err)
+    })
+})
+
+// display a particular blog
+app.get("/blogs/:id", (req, res) => {
+    Blog.findById(req.params.id)
+    .then(result =>{
+        res.render("details", {title: 'Blog Details', blog: result})
+    })
+    .catch(err => {
         console.log(err)
     })
 })
