@@ -58,12 +58,20 @@ app.get("/blogs/:id", (req, res) => {
     })
 })
 
+// delete a particular blog
+app.post("/blogs/delete/:id", (req, res) => {
+    Blog.findByIdAndDelete(req.params.id)
+    .then(() => {
+        res.redirect('/');
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+});
+
 app.get("/about", (req, res) => {
     res.render("about.ejs",  {title: "About"})
 })
 
-app.get("/create", (req, res) => {
-    res.render("create.ejs",  {title: "Create blog"})
-})
 
 

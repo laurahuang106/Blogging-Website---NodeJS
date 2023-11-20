@@ -9,6 +9,10 @@
       </div>
     </div>
 
+    <form action="/blogs/delete/<%= blog._id %>" method="POST">
+      <button type="submit">Delete</button>
+    </form>
+
     <%- include('./partials/footer.ejs') %>
   </body>
 </html>
