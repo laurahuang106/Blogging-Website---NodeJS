@@ -2,12 +2,12 @@
 <html lang="en">
   <%- include('./partials/header.ejs') %>
   <body>
-    <div>
+    <div class="blogs content">
       <h2>All Blogs</h2>
       <% if (blogs.length > 0) { %> <% blogs.forEach(blog => { %>
-      <a href="/blogs/<%= blog._id %>">
-        <h3><%= blog.title %></h3>
-        <p><%= blog.body %></p>
+      <a class="single" href="/blogs/<%= blog._id %>">
+        <h3 class="title"><%= blog.title %></h3>
+        <p class="snippet"><%= blog.body %></p>
       </a>
       <% }) %> <% } else { %>
       <p>There are no blogs to display...</p>
